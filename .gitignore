@@ -18,5 +18,6 @@ _ide_helper.php
 _ide_helper_models.php
 auth.json
 npm-debug.log
+soketi.json
 yarn-error.log
 

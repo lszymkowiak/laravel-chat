@@ -20,8 +20,8 @@ const props = defineProps({
         default: false
     },
     href: {
-        type: String,
-        required: true
+        type: [String, null],
+        default: null
     },
     as: {
         type: [String, null],

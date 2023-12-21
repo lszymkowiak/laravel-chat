@@ -3,9 +3,18 @@ import { computed } from 'vue';
 import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
-    active: Boolean,
-    href: String,
-    as: String,
+    active: {
+        type: Boolean,
+        default: false
+    },
+    href: {
+        type: String,
+        required: true
+    },
+    as: {
+        type: [String, null],
+        default: null
+    },
 });
 
 const classes = computed(() => {
@@ -17,7 +26,7 @@ const classes = computed(() => {
 
 <template>
     <div>
-        <button v-if="as == 'button'" :class="classes" class="w-full text-start">
+        <button v-if="as === 'button'" :class="classes" class="w-full text-start">
             <slot />
         </button>
 

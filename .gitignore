@@ -11,6 +11,7 @@
 .env
 .env.backup
 .env.production
+.phpactor.json
 .php-cs-fixer.cache
 .phpstorm.meta.php
 .phpunit.result.cache

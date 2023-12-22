@@ -14,7 +14,7 @@ createInertiaApp({
     resolve: name => {
         const page = resolvePageComponent(`./views/${name}.vue`, import.meta.glob('./views/**/*.vue'))
         page.then(page => {
-            if (page.default.layout === undefined && !name.startsWith('Auth/')) {
+            if (page.default.layout === undefined && !name.startsWith('Auth/') && name !== 'Welcome') {
                 page.default.layout = AppLayout
             }
         })

@@ -25,7 +25,7 @@
                     <div class="flex items-center bg-white border-b p-2 relative group">
                         <chat-user :user="chat.user"/>
 
-                        <button type="button" class="absolute right-1 p-1 rounded-full border border-transparent hidden group-hover:block hover:bg-red-100 hover:border-red-200" @click="closeChat(chatIdx)">
+                        <button type="button" class="absolute right-1 p-1 rounded-full hidden group-hover:block hover:text-red-500" @click="closeChat(chatIdx, chat.user.id)">
                             <x-mark-icon class="size-4"/>
                         </button>
                     </div>
@@ -75,7 +75,15 @@ onMounted(() => {
 
 const fetchData = () => {
     axios.get(route('chat.index'))
-        .then(response => usersList.value = response.data.users)
+        .then(response => {
+            usersList.value = response.data.users
+            response.data.chats.forEach(item => {
+                chatList.value.push({
+                    user: item.interlocutor,
+                    messages: []
+                })
+            })
+        })
 }
 
 const startChat = (user) => {
@@ -83,18 +91,22 @@ const startChat = (user) => {
         return
     }
 
-    chatList.value.push({
-        user: user,
-        messages: []
-    })
-
     usersShow.value = false
+
+    axios.get(route('chat.show', user.id))
+        .then(response => {
+            chatList.value.push({
+                user: user,
+                messages: response.data.messages
+            })
+        })
 
     return chatList.value.length - 1
 }
 
-const closeChat = (index) => {
-    chatList.value.splice(index, 1)
+const closeChat = (index, userId) => {
+    axios.delete(route('chat.destroy', userId))
+        .then(() => chatList.value.splice(index, 1))
 }
 
 const getChatIdx = (id) => {

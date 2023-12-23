@@ -20,7 +20,12 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', fn () => Inertia::render('Dashboard'))->name('dashboard');
 
-    Route::prefix('chat')->name('chat.')->group(function () {
-        Route::get('/', \App\Http\Controllers\ChatController::class)->name('index');
-    });
+    Route::controller(\App\Http\Controllers\ChatController::class)
+        ->prefix('chat')
+        ->name('chat.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('{interlocutor_id}', 'show')->name('show');
+            Route::delete('{interlocutor_id}', 'destroy')->name('destroy');
+        });
 });

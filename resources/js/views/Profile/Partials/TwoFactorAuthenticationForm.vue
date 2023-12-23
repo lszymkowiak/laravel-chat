@@ -51,15 +51,15 @@
                         <InputLabel for="code" value="Code" />
 
                         <TextInput
-                                id="code"
-                                v-model="confirmationForm.code"
-                                type="text"
-                                name="code"
-                                class="block mt-1 w-1/2"
-                                inputmode="numeric"
-                                autofocus
-                                autocomplete="one-time-code"
-                                @keyup.enter="confirmTwoFactorAuthentication"
+                            id="code"
+                            v-model="confirmationForm.code"
+                            type="text"
+                            name="code"
+                            class="block mt-1 w-1/2"
+                            inputmode="numeric"
+                            autofocus
+                            autocomplete="one-time-code"
+                            @keyup.enter="confirmTwoFactorAuthentication"
                         />
 
                         <InputError :message="confirmationForm.errors.code" class="mt-2" />
@@ -93,11 +93,11 @@
                 <div v-else>
                     <ConfirmsPassword @confirmed="confirmTwoFactorAuthentication">
                         <PrimaryButton
-                                v-if="confirming"
-                                type="button"
-                                class="me-3"
-                                :class="{ 'opacity-25': enabling }"
-                                :disabled="enabling"
+                            v-if="confirming"
+                            type="button"
+                            class="me-3"
+                            :class="{ 'opacity-25': enabling }"
+                            :disabled="enabling"
                         >
                             Confirm
                         </PrimaryButton>
@@ -105,8 +105,8 @@
 
                     <ConfirmsPassword @confirmed="regenerateRecoveryCodes">
                         <SecondaryButton
-                                v-if="recoveryCodes.length > 0 && ! confirming"
-                                class="me-3"
+                            v-if="recoveryCodes.length > 0 && ! confirming"
+                            class="me-3"
                         >
                             Regenerate Recovery Codes
                         </SecondaryButton>
@@ -114,8 +114,8 @@
 
                     <ConfirmsPassword @confirmed="showRecoveryCodes">
                         <SecondaryButton
-                                v-if="recoveryCodes.length === 0 && ! confirming"
-                                class="me-3"
+                            v-if="recoveryCodes.length === 0 && ! confirming"
+                            class="me-3"
                         >
                             Show Recovery Codes
                         </SecondaryButton>
@@ -123,9 +123,9 @@
 
                     <ConfirmsPassword @confirmed="disableTwoFactorAuthentication">
                         <SecondaryButton
-                                v-if="confirming"
-                                :class="{ 'opacity-25': disabling }"
-                                :disabled="disabling"
+                            v-if="confirming"
+                            :class="{ 'opacity-25': disabling }"
+                            :disabled="disabling"
                         >
                             Cancel
                         </SecondaryButton>
@@ -133,9 +133,9 @@
 
                     <ConfirmsPassword @confirmed="disableTwoFactorAuthentication">
                         <DangerButton
-                                v-if="! confirming"
-                                :class="{ 'opacity-25': disabling }"
-                                :disabled="disabling"
+                            v-if="! confirming"
+                            :class="{ 'opacity-25': disabling }"
+                            :disabled="disabling"
                         >
                             Disable
                         </DangerButton>

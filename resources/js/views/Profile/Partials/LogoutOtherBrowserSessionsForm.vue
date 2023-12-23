@@ -64,13 +64,13 @@
 
                     <div class="mt-4">
                         <TextInput
-                                ref="passwordInput"
-                                v-model="form.password"
-                                type="password"
-                                class="mt-1 block w-3/4"
-                                placeholder="Password"
-                                autocomplete="current-password"
-                                @keyup.enter="logoutOtherBrowserSessions"
+                            ref="passwordInput"
+                            v-model="form.password"
+                            type="password"
+                            class="mt-1 block w-3/4"
+                            placeholder="Password"
+                            autocomplete="current-password"
+                            @keyup.enter="logoutOtherBrowserSessions"
                         />
 
                         <InputError :message="form.errors.password" class="mt-2" />
@@ -83,10 +83,10 @@
                     </SecondaryButton>
 
                     <PrimaryButton
-                            class="ms-3"
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                            @click="logoutOtherBrowserSessions"
+                        class="ms-3"
+                        :class="{ 'opacity-25': form.processing }"
+                        :disabled="form.processing"
+                        @click="logoutOtherBrowserSessions"
                     >
                         Log Out Other Browser Sessions
                     </PrimaryButton>

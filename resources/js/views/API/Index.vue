@@ -12,9 +12,9 @@
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             <ApiTokenManager
-                    :tokens="tokens"
-                    :available-permissions="availablePermissions"
-                    :default-permissions="defaultPermissions"
+                :tokens="tokens"
+                :available-permissions="availablePermissions"
+                :default-permissions="defaultPermissions"
             />
         </div>
     </div>
@@ -22,7 +22,6 @@
 
 <script setup>
 import ApiTokenManager from '@/views/API/Partials/ApiTokenManager.vue';
-import AppLayout from '@/layouts/AppLayout.vue';
 import {Head} from "@inertiajs/vue3";
 
 defineProps({

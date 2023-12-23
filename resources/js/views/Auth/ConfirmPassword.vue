@@ -14,14 +14,14 @@
             <div>
                 <InputLabel for="password" value="Password" />
                 <TextInput
-                        id="password"
-                        ref="passwordInput"
-                        v-model="form.password"
-                        type="password"
-                        class="mt-1 block w-full"
-                        required
-                        autocomplete="current-password"
-                        autofocus
+                    id="password"
+                    ref="passwordInput"
+                    v-model="form.password"
+                    type="password"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="current-password"
+                    autofocus
                 />
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>

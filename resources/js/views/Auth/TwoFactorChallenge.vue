@@ -20,14 +20,14 @@
             <div v-if="! recovery">
                 <InputLabel for="code" value="Code" />
                 <TextInput
-                        id="code"
-                        ref="codeInput"
-                        v-model="form.code"
-                        type="text"
-                        inputmode="numeric"
-                        class="mt-1 block w-full"
-                        autofocus
-                        autocomplete="one-time-code"
+                    id="code"
+                    ref="codeInput"
+                    v-model="form.code"
+                    type="text"
+                    inputmode="numeric"
+                    class="mt-1 block w-full"
+                    autofocus
+                    autocomplete="one-time-code"
                 />
                 <InputError class="mt-2" :message="form.errors.code" />
             </div>
@@ -35,12 +35,12 @@
             <div v-else>
                 <InputLabel for="recovery_code" value="Recovery Code" />
                 <TextInput
-                        id="recovery_code"
-                        ref="recoveryCodeInput"
-                        v-model="form.recovery_code"
-                        type="text"
-                        class="mt-1 block w-full"
-                        autocomplete="one-time-code"
+                    id="recovery_code"
+                    ref="recoveryCodeInput"
+                    v-model="form.recovery_code"
+                    type="text"
+                    class="mt-1 block w-full"
+                    autocomplete="one-time-code"
                 />
                 <InputError class="mt-2" :message="form.errors.recovery_code" />
             </div>

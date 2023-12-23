@@ -30,13 +30,13 @@
 
                     <div class="mt-4">
                         <TextInput
-                                ref="passwordInput"
-                                v-model="form.password"
-                                type="password"
-                                class="mt-1 block w-3/4"
-                                placeholder="Password"
-                                autocomplete="current-password"
-                                @keyup.enter="deleteUser"
+                            ref="passwordInput"
+                            v-model="form.password"
+                            type="password"
+                            class="mt-1 block w-3/4"
+                            placeholder="Password"
+                            autocomplete="current-password"
+                            @keyup.enter="deleteUser"
                         />
 
                         <InputError :message="form.errors.password" class="mt-2" />
@@ -49,10 +49,10 @@
                     </SecondaryButton>
 
                     <DangerButton
-                            class="ms-3"
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                            @click="deleteUser"
+                        class="ms-3"
+                        :class="{ 'opacity-25': form.processing }"
+                        :disabled="form.processing"
+                        @click="deleteUser"
                     >
                         Delete Account
                     </DangerButton>

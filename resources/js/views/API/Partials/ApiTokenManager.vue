@@ -15,11 +15,11 @@
                 <div class="col-span-6 sm:col-span-4">
                     <InputLabel for="name" value="Name" />
                     <TextInput
-                            id="name"
-                            v-model="createApiTokenForm.name"
-                            type="text"
-                            class="mt-1 block w-full"
-                            autofocus
+                        id="name"
+                        v-model="createApiTokenForm.name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        autofocus
                     />
                     <InputError :message="createApiTokenForm.errors.name" class="mt-2" />
                 </div>
@@ -78,9 +78,9 @@
                                     </div>
 
                                     <button
-                                            v-if="availablePermissions.length > 0"
-                                            class="cursor-pointer ms-6 text-sm text-gray-400 underline"
-                                            @click="manageApiTokenPermissions(token)"
+                                        v-if="availablePermissions.length > 0"
+                                        class="cursor-pointer ms-6 text-sm text-gray-400 underline"
+                                        @click="manageApiTokenPermissions(token)"
                                     >
                                         Permissions
                                     </button>
@@ -142,10 +142,10 @@
                 </SecondaryButton>
 
                 <PrimaryButton
-                        class="ms-3"
-                        :class="{ 'opacity-25': updateApiTokenForm.processing }"
-                        :disabled="updateApiTokenForm.processing"
-                        @click="updateApiToken"
+                    class="ms-3"
+                    :class="{ 'opacity-25': updateApiTokenForm.processing }"
+                    :disabled="updateApiTokenForm.processing"
+                    @click="updateApiToken"
                 >
                     Save
                 </PrimaryButton>
@@ -168,10 +168,10 @@
                 </SecondaryButton>
 
                 <DangerButton
-                        class="ms-3"
-                        :class="{ 'opacity-25': deleteApiTokenForm.processing }"
-                        :disabled="deleteApiTokenForm.processing"
-                        @click="deleteApiToken"
+                    class="ms-3"
+                    :class="{ 'opacity-25': deleteApiTokenForm.processing }"
+                    :disabled="deleteApiTokenForm.processing"
+                    @click="deleteApiToken"
                 >
                     Delete
                 </DangerButton>

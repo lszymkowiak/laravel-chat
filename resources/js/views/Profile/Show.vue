@@ -25,8 +25,8 @@
 
             <div v-if="$page.props.jetstream.canManageTwoFactorAuthentication">
                 <TwoFactorAuthenticationForm
-                        :requires-confirmation="confirmsTwoFactorAuthentication"
-                        class="mt-10 sm:mt-0"
+                    :requires-confirmation="confirmsTwoFactorAuthentication"
+                    class="mt-10 sm:mt-0"
                 />
 
                 <SectionBorder />
@@ -44,7 +44,6 @@
 </template>
 
 <script setup>
-import AppLayout from '@/layouts/AppLayout.vue';
 import DeleteUserForm from '@/views/Profile/Partials/DeleteUserForm.vue';
 import LogoutOtherBrowserSessionsForm from '@/views/Profile/Partials/LogoutOtherBrowserSessionsForm.vue';
 import SectionBorder from '@/components/SectionBorder.vue';

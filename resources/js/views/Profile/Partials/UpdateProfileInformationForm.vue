@@ -13,11 +13,11 @@
             <div v-if="$page.props.jetstream.managesProfilePhotos" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
                 <input
-                        id="photo"
-                        ref="photoInput"
-                        type="file"
-                        class="hidden"
-                        @change="updatePhotoPreview"
+                    id="photo"
+                    ref="photoInput"
+                    type="file"
+                    class="hidden"
+                    @change="updatePhotoPreview"
                 >
 
                 <InputLabel for="photo" value="Photo" />
@@ -30,8 +30,8 @@
                 <!-- New Profile Photo Preview -->
                 <div v-show="photoPreview" class="mt-2">
                     <span
-                            class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                            :style="'background-image: url(\'' + photoPreview + '\');'"
+                        class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
+                        :style="'background-image: url(\'' + photoPreview + '\');'"
                     />
                 </div>
 
@@ -40,10 +40,10 @@
                 </SecondaryButton>
 
                 <SecondaryButton
-                        v-if="user.profile_photo_path"
-                        type="button"
-                        class="mt-2"
-                        @click.prevent="deletePhoto"
+                    v-if="user.profile_photo_path"
+                    type="button"
+                    class="mt-2"
+                    @click.prevent="deletePhoto"
                 >
                     Remove Photo
                 </SecondaryButton>
@@ -55,12 +55,12 @@
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="name" value="Name" />
                 <TextInput
-                        id="name"
-                        v-model="form.name"
-                        type="text"
-                        class="mt-1 block w-full"
-                        required
-                        autocomplete="name"
+                    id="name"
+                    v-model="form.name"
+                    type="text"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="name"
                 />
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
@@ -69,12 +69,12 @@
             <div class="col-span-6 sm:col-span-4">
                 <InputLabel for="email" value="Email" />
                 <TextInput
-                        id="email"
-                        v-model="form.email"
-                        type="email"
-                        class="mt-1 block w-full"
-                        required
-                        autocomplete="username"
+                    id="email"
+                    v-model="form.email"
+                    type="email"
+                    class="mt-1 block w-full"
+                    required
+                    autocomplete="username"
                 />
                 <InputError :message="form.errors.email" class="mt-2" />
 
@@ -83,11 +83,11 @@
                         Your email address is unverified.
 
                         <Link
-                                :href="route('verification.send')"
-                                method="post"
-                                as="button"
-                                class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
-                                @click.prevent="sendEmailVerification"
+                            :href="route('verification.send')"
+                            method="post"
+                            as="button"
+                            class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
+                            @click.prevent="sendEmailVerification"
                         >
                             Click here to re-send the verification email.
                         </Link>

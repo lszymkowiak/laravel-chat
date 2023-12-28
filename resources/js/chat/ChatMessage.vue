@@ -1,10 +1,8 @@
 <template>
     <div class="relative w-80 h-12">
         <div class="absolute inset-x-0 bottom-0 bg-white" :class="[isMaximized ? 'rounded-md' : 'rounded-full']">
-            <div
-                class="flex items-center p-2 relative group"
-                :class="{'animate-pulse bg-blue-200': hasUnreadMessages, 'rounded-full': !isMaximized}">
-                <chat-user :user="chat.user"/>
+            <div class="flex items-center p-2 relative group" :class="{'animate-pulse bg-cyan-200': hasUnreadMessages && !isMaximized, 'rounded-full': !isMaximized}">
+                <chat-user :user="chat.user" :present="props.present"/>
 
                 <div class="absolute right-1 p-1 flex space-x-2">
                     <button type="button" class="hidden group-hover:block hover:text-blue-500" @click="isMaximized = !isMaximized">
@@ -19,12 +17,12 @@
             </div>
 
             <div v-show="isMaximized" class="border-t relative">
-                <svg v-if="loading" class="absolute top-2 right-6 animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg v-if="loading" class="absolute top-2 right-6 animate-spin h-5 w-5 text-cyan-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
                 </svg>
 
-                <div ref="messageListDiv" class="h-96 p-2 space-y-2 overflow-y-auto ">
+                <div ref="messageListDiv" class="h-96 p-2 space-y-2 overflow-y-auto">
                     <div v-for="(message, messageIdx) in chat.messages" :key="messageIdx" class="p-2 rounded-md text-sm" :class="[message.from_user_id === user.id ? 'bg-cyan-100 ml-8' : 'bg-gray-100 mr-8']">
                         <span v-html="message.content"/>
                         <div class="text-xs text-gray-500 text-right">
@@ -32,6 +30,10 @@
                         </div>
                     </div>
                 </div>
+
+                <button v-if="hasUnreadMessages" class="animate-bounce bg-cyan-400 rounded-full text-white absolute right-5 bottom-12 p-2" @click="scrollToBottom">
+                    <arrow-down-icon class="size-4"/>
+                </button>
 
                 <div class="border-t">
                     <textarea v-model="messageContent" class="w-full border-0 resize-none" rows="1" placeholder="Wiadomość..." @keydown.enter="sendMessage"/>
@@ -43,7 +45,7 @@
 
 <script setup>
 import ChatUser from "@/chat/ChatUser.vue";
-import {XMarkIcon, ChevronDownIcon, ChevronUpIcon} from "@heroicons/vue/16/solid/index.js";
+import {XMarkIcon, ChevronDownIcon, ChevronUpIcon, ArrowDownIcon} from "@heroicons/vue/16/solid/index.js";
 import {nextTick, onMounted, ref, watch} from "vue";
 
 const emit = defineEmits(['close']);
@@ -56,6 +58,10 @@ const props = defineProps({
     chat: {
         type: Object,
         required: true
+    },
+    present: {
+        type: Array,
+        default: () => []
     }
 })
 

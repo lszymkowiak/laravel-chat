@@ -8,7 +8,7 @@
             <div v-if="usersShow" class="absolute bottom-14 right-0 bg-white border rounded-md w-80 z-10">
                 <div class="h-64 overflow-y-auto overflow-x-clip p-2">
                     <div v-for="user in usersFiltered" :key="user.id" class="flex items-center hover:bg-gray-50 rounded-full p-2" role="button" :title="user.name" @click="startChat(user)">
-                        <chat-user :user="user"/>
+                        <chat-user :user="user" :present="usersPresent"/>
                     </div>
                 </div>
 
@@ -20,9 +20,10 @@
 
         <div class="flex space-x-4 mr-4" :class="{'opacity-25': usersShow}">
             <chat-message
-                v-for="(chat, chatIdx) in chatList" :key="chatIdx"
+                v-for="(chat, chatIdx) in chatList" :key="chat.user.id"
                 :user="page.props.auth.user"
                 :chat="chat"
+                :present="usersPresent"
                 @close="closeChat(chatIdx, chat.user.id)"
             />
         </div>
@@ -41,6 +42,7 @@ const usersList = ref([]);
 const usersShow = ref(false)
 const usersSearch = ref('')
 const usersSearchInput = ref(null)
+const usersPresent = ref([])
 const chatList = ref([])
 
 const usersFiltered = computed(() => {
@@ -57,7 +59,7 @@ watch(usersShow, (value) => {
 
 onMounted(() => {
     fetchData()
-    // watchPresence()
+    watchPresence()
     watchChat()
 })
 
@@ -109,21 +111,22 @@ const getChatIdx = (id) => {
     return chatIdx
 }
 
-// const watchPresence = () => {
-//     Echo.join('chat')
-//         .here((users) => {
-//             console.log(users)
-//         })
-//         .joining((user) => {
-//             console.log(user.name);
-//         })
-//         .leaving((user) => {
-//             console.log(user.name);
-//         })
-//         .error((error) => {
-//             console.error(error);
-//         });
-// }
+const watchPresence = () => {
+    Echo.join('chat')
+        .here((users) => {
+            usersPresent.value = users
+        })
+        .joining((user) => {
+            usersPresent.value.push(user)
+        })
+        .leaving((user) => {
+            let idx = usersPresent.value.findIndex(item => item.id === user.id)
+            if (idx >= 0) {
+                usersPresent.value.splice(idx, 1)
+            }
+
+        })
+}
 
 const watchChat = () => {
     Echo.private(`chat.${page.props.auth.user.id}`)

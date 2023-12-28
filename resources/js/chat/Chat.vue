@@ -2,7 +2,7 @@
     <div class="fixed bottom-0 right-0 flex p-4 flex-row-reverse items-center">
         <div class="relative">
             <button type="button" class="bg-white border rounded-full p-4" @click="usersShow = !usersShow">
-                <chat-bubble-bottom-center-icon class="size-4"/>
+                <chat-bubble-bottom-center-text-icon class="size-4"/>
             </button>
 
             <div v-if="usersShow" class="absolute bottom-14 right-0 bg-white border rounded-md w-80 z-10">
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import {ChatBubbleBottomCenterIcon} from "@heroicons/vue/16/solid/index.js";
+import {ChatBubbleBottomCenterTextIcon} from "@heroicons/vue/24/outline/index.js";
 import {computed, onMounted, ref, watch} from "vue";
 import { usePage } from '@inertiajs/vue3';
 import ChatUser from "@/chat/ChatUser.vue";

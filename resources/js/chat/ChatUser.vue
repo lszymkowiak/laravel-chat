@@ -6,7 +6,7 @@
     <div v-if="isPresent" class="h-2 w-2 bg-green-500 rounded-full mr-2"/>
 
     <div class="whitespace-nowrap overflow-hidden text-sm">
-        {{ user.name }}
+        {{ user.name }} {{ user.id }}
     </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
     <div class="relative w-80 h-12">
-        <div class="absolute inset-x-0 bottom-0 bg-white" :class="[isMaximized ? 'rounded-md' : 'rounded-full']">
-            <div class="flex items-center p-2 relative group" :class="{'animate-pulse bg-cyan-200': hasUnreadMessages && !isMaximized, 'rounded-full': !isMaximized}">
+        <div class="absolute inset-x-0 bottom-0 bg-white overflow-clip" :class="[isMaximized ? 'rounded-md' : 'rounded-full']">
+            <div class="flex items-center p-2 relative group" :class="{'animate-pulse bg-cyan-400': hasUnreadMessages, 'rounded-full': !isMaximized}">
                 <chat-user :user="chat.user" :present="props.present"/>
 
                 <div class="absolute right-1 p-1 flex space-x-2">
@@ -23,7 +23,7 @@
                 </svg>
 
                 <div ref="messageListDiv" class="h-96 p-2 space-y-2 overflow-y-auto">
-                    <div v-for="(message, messageIdx) in chat.messages" :key="messageIdx" class="p-2 rounded-md text-sm" :class="[message.from_user_id === user.id ? 'bg-cyan-100 ml-8' : 'bg-gray-100 mr-8']">
+                    <div v-for="(message, messageIdx) in chat.messages" :key="messageIdx" class="p-2 rounded-md text-sm" :class="[message.from_user_id === user.id ? 'bg-cyan-200 ml-8' : 'bg-gray-100 mr-8']">
                         <span v-html="message.content"/>
                         <div class="text-xs text-gray-500 text-right">
                             {{ message.date }}
@@ -71,7 +71,11 @@ const isMaximized = ref(true)
 const hasUnreadMessages = ref(false)
 const loading = ref(false)
 
-watch(props.chat.messages, () => {
+watch(props.chat.messages, (value) => {
+    if (value[value.length - 1].from_user_id !== props.chat.user.id) {
+        return
+    }
+
     hasUnreadMessages.value = true
     if (messageListDiv.value.scrollHeight === messageListDiv.value.clientHeight) {
         setTimeout(() => hasUnreadMessages.value = false, 5000)

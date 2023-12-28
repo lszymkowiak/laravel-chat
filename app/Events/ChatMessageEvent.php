@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\User;
+use App\Models\ChatMessage;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -14,27 +14,26 @@ class ChatMessageEvent implements ShouldBroadcast
     use Dispatchable;
     use SerializesModels;
 
-    public function __construct(public readonly User $user, public readonly string $message)
+    public function __construct(public readonly ChatMessage $message)
     {
     }
 
     public function broadcastOn(): Channel
     {
-        // return new PrivateChannel('chat.' . $this->user->id);
-        return new PrivateChannel('chat.1');
+        return new PrivateChannel('chat.' . $this->message->to_user_id);
     }
 
     public function broadcastWith(): array
     {
         return [
             'user' => [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'profile_photo_url' => $this->user->profile_photo_url,
+                'id' => $this->message->fromUser->id,
+                'name' => $this->message->fromUser->name,
+                'profile_photo_url' => $this->message->fromUser->profile_photo_url,
             ],
             'message' => [
-                'content' => $this->message,
-                'date' => now()->format('Y-m-d H:i:s'),
+                'content' => $this->message->content,
+                'date' => $this->message->created_at->format('Y-m-d H:i:s'),
             ],
         ];
     }

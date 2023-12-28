@@ -25,7 +25,8 @@ Route::middleware([
         ->name('chat.')
         ->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::get('{interlocutor_id}', 'show')->name('show');
+            Route::get('{interlocutor_id}/{before_id?}', 'show')->name('show');
+            Route::put('/', 'store')->name('store');
             Route::delete('{interlocutor_id}', 'destroy')->name('destroy');
         });
 });

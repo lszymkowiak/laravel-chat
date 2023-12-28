@@ -1,12 +1,11 @@
 <template>
-    <div class="fixed bottom-0 right-0 flex p-4 flex-row-reverse">
+    <div class="fixed bottom-0 right-0 flex p-4 flex-row-reverse items-center">
         <div class="relative">
-            <button type="button" class="bg-white border rounded-full p-3" @click="usersShow = !usersShow">
+            <button type="button" class="bg-white border rounded-full p-4" @click="usersShow = !usersShow">
                 <chat-bubble-bottom-center-icon class="size-4"/>
             </button>
 
-            <!-- TODO: transition -->
-            <div v-if="usersShow" class="absolute bottom-12 right-0 bg-white border rounded-md w-64 z-10">
+            <div v-if="usersShow" class="absolute bottom-14 right-0 bg-white border rounded-md w-80 z-10">
                 <div class="h-64 overflow-y-auto overflow-x-clip p-2">
                     <div v-for="user in usersFiltered" :key="user.id" class="flex items-center hover:bg-gray-50 rounded-full p-2" role="button" :title="user.name" @click="startChat(user)">
                         <chat-user :user="user"/>
@@ -19,30 +18,19 @@
             </div>
         </div>
 
-        <div class="flex space-x-2 mr-2">
-            <div v-for="(chat, chatIdx) in chatList" :key="chatIdx" class="relative w-64">
-                <div class="absolute inset-x-0 bottom-0 bg-white rounded-md">
-                    <div class="flex items-center bg-white border-b p-2 relative group">
-                        <chat-user :user="chat.user"/>
-
-                        <button type="button" class="absolute right-1 p-1 rounded-full hidden group-hover:block hover:text-red-500" @click="closeChat(chatIdx, chat.user.id)">
-                            <x-mark-icon class="size-4"/>
-                        </button>
-                    </div>
-
-                    <chat-message :messages="chat.messages"/>
-
-                    <div class="border-t">
-                        <input ref="usersSearchInput" v-model="usersSearch" type="search" class="w-full border-0" placeholder="Wiadomość...">
-                    </div>
-                </div>
-            </div>
+        <div class="flex space-x-4 mr-4" :class="{'opacity-25': usersShow}">
+            <chat-message
+                v-for="(chat, chatIdx) in chatList" :key="chatIdx"
+                :user="page.props.auth.user"
+                :chat="chat"
+                @close="closeChat(chatIdx, chat.user.id)"
+            />
         </div>
     </div>
 </template>
 
 <script setup>
-import {ChatBubbleBottomCenterIcon, XMarkIcon} from "@heroicons/vue/16/solid/index.js";
+import {ChatBubbleBottomCenterIcon} from "@heroicons/vue/16/solid/index.js";
 import {computed, onMounted, ref, watch} from "vue";
 import { usePage } from '@inertiajs/vue3';
 import ChatUser from "@/chat/ChatUser.vue";
@@ -80,7 +68,7 @@ const fetchData = () => {
             response.data.chats.forEach(item => {
                 chatList.value.push({
                     user: item.interlocutor,
-                    messages: []
+                    messages: item.messages
                 })
             })
         })
@@ -104,21 +92,21 @@ const startChat = (user) => {
     return chatList.value.length - 1
 }
 
-const closeChat = (index, userId) => {
+const closeChat = (idx, userId) => {
     axios.delete(route('chat.destroy', userId))
-        .then(() => chatList.value.splice(index, 1))
+        .then(() => chatList.value.splice(idx, 1))
 }
 
 const getChatIdx = (id) => {
-    let isOpen = null
+    let chatIdx = null
 
     chatList.value.forEach((item, idx) => {
         if (item.user.id === id) {
-            isOpen = idx
+            chatIdx = idx
         }
     })
 
-    return isOpen
+    return chatIdx
 }
 
 // const watchPresence = () => {

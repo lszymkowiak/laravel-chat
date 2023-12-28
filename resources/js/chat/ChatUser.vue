@@ -4,7 +4,7 @@
     </div>
 
     <div class="whitespace-nowrap overflow-hidden text-sm">
-        {{ user.name }}
+        {{ user.name }} {{ user.id }}
     </div>
 </template>
 
